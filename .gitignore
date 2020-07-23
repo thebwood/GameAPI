@@ -1,5 +1,6 @@
 
-Game.API/bin/
-Game.API/obj/
-Game.API/obj/Debug/
-Game.API/obj/Debug/netcoreapp3.1
+Game.API/bin/*
+Game.API/obj/*
+Game.API/obj/Debug/*
+Game.API/obj/Debug/netcoreapp3.1/*
+
