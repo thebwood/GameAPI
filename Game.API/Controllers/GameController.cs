@@ -2,25 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using Game.API.Domain.Models;
 using Game.API.Domain.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+
 
 namespace Game.API.Controllers
 {
+    [EnableCors("SiteCorsPolicy")]
     [Route("api/games")]
     [ApiController]
     public class GameController : ControllerBase
     {
-        private IGameRepository _repository;
+        private IGameService _service { get; set; }
         private readonly IMapper _mapper;
-        public GameController(IGameRepository repo, IMapper mapper)
+
+        public GameController(IGameService service, IMapper mapper)
         {
-            _repository = repo ??
-                throw new ArgumentNullException(nameof(repo));
+            _service = service ??
+                throw new ArgumentNullException(nameof(service));
             _mapper = mapper ??
                 throw new ArgumentNullException(nameof(mapper));
         }
@@ -34,7 +36,7 @@ namespace Game.API.Controllers
         {
             try
             {
-                var data = _repository.GetGames();
+                var data = _service.GetGames();
 
                 var retVal = _mapper.Map<IEnumerable<GamesModel>>(data);
 
@@ -51,15 +53,41 @@ namespace Game.API.Controllers
             }
         }
 
+        [HttpGet("{gameId}")]
+        [ProducesResponseType(typeof(GamesModel), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(GamesModel), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(GamesModel), (int)HttpStatusCode.InternalServerError)]
+        public IActionResult GetGame(int gameId)
+        {
+            try
+            {
+                var data = _service.GetGame(gameId);
+
+                var retVal = _mapper.Map<GamesModel>(data);
+
+                if (retVal != null)
+                {
+                    return Ok(retVal);
+                }
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
+            }
+        }
+
+
         [HttpGet("ratings")]
         [ProducesResponseType(typeof(GameRatingsModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(GameRatingsModel), (int)HttpStatusCode.NotFound)]
         [ProducesResponseType(typeof(GameRatingsModel), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetMovieRatings()
+        public IActionResult GetGameRatings()
         {
             try
             {
-                var data = _repository.GetGameRatings();
+                var data = _service.GetGameRatings();
 
                 var retVal = _mapper.Map<IEnumerable<GameRatingsModel>>(data);
 
@@ -74,6 +102,32 @@ namespace Game.API.Controllers
             {
                 return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
             }
+        }
+
+
+        [HttpPost]
+        [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
+        public IActionResult UpdateGame([FromBody] GamesModel game)
+        {
+            var errorList = new List<string>();
+
+            try
+            {
+
+                errorList = _service.SaveDetail(game);
+                if (errorList.Count > 0)
+                {
+                    return BadRequest(errorList);
+                }
+            }
+            catch (Exception ex)
+            {
+                errorList = new List<string>() { "Error in saving" };
+                return BadRequest(errorList);
+            }
+
+            return Ok(errorList);
         }
 
     }

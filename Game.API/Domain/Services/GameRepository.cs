@@ -13,7 +13,17 @@ namespace Game.API.Domain.Services
         public GameRepository(GamesContext context) => _context = context;
 
         public IEnumerable<Games> GetGames() => _context.Games;
+        public Games GetGame(int gameId) => _context.Games.Where(x => x.Id == gameId).Single();
         public IEnumerable<GameRatings> GetGameRatings() => _context.GameRatings;
+        public void SaveDetail(Games game)
+        {
+            if (game.Id > 0)
+                _context.Games.Update(game);
+            else
+                _context.Games.Add(game);
+            _context.SaveChanges();
+        }
+
 
     }
 }

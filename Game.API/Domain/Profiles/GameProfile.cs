@@ -13,6 +13,7 @@ namespace Game.API.Domain.Profiles
         public GameProfile()
         {
             CreateMap<Games, GamesModel>();
+            CreateMap<GamesModel, Games>();
             CreateMap<GameRatings, GameRatingsModel>();
         }
     }

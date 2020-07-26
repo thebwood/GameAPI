@@ -58,3 +58,4 @@ D:\Development\GitHub\Blazor Apps\GameAPI\Game.API\obj\Debug\netcoreapp3.1\stati
 D:\Development\GitHub\Blazor Apps\GameAPI\Game.API\obj\Debug\netcoreapp3.1\Game.API.dll
 D:\Development\GitHub\Blazor Apps\GameAPI\Game.API\obj\Debug\netcoreapp3.1\Game.API.pdb
 D:\Development\GitHub\Blazor Apps\GameAPI\Game.API\obj\Debug\netcoreapp3.1\Game.API.genruntimeconfig.cache
+D:\Development\GitHub\Blazor Apps\GameAPI\Game.API\obj\Debug\netcoreapp3.1\Game.API.csprojAssemblyReference.cache

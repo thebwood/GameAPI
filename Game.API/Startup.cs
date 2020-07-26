@@ -41,6 +41,7 @@ namespace Game.API
 
             services.AddControllers();
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IGameService, GameService>();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 
