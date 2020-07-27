@@ -40,7 +40,7 @@ namespace Game.API.Controllers
 
                 var retVal = _mapper.Map<IEnumerable<GamesModel>>(data);
 
-                if (retVal.Count() > 0)
+                if (retVal != null)
                 {
                     return Ok(retVal);
                 }

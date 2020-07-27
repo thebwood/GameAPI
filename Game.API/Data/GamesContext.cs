@@ -20,7 +20,7 @@ namespace Game.API.Data
         public virtual DbSet<GameTypes> GameTypes { get; set; }
         public virtual DbSet<Games> Games { get; set; }
         public virtual DbSet<GamesGameFormats> GamesGameFormats { get; set; }
-
+        public virtual DbSet<GamesGameTypes> GamesGameTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -62,12 +62,11 @@ namespace Game.API.Data
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Description)
+                    .IsRequired()
                     .HasMaxLength(2000)
                     .IsUnicode(false);
 
                 entity.Property(e => e.GameRatingsId).HasColumnName("GameRatingsID");
-
-                entity.Property(e => e.GameTypesId).HasColumnName("GameTypesID");
 
                 entity.Property(e => e.Title)
                     .IsRequired()
@@ -82,6 +81,17 @@ namespace Game.API.Data
                 entity.Property(e => e.GameFormatId).HasColumnName("GameFormatID");
 
                 entity.Property(e => e.GameId).HasColumnName("GameID");
+
+                entity.Property(e => e.ReleaseDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<GamesGameTypes>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.GameId).HasColumnName("GameID");
+
+                entity.Property(e => e.GameTypesId).HasColumnName("GameTypesID");
 
                 entity.Property(e => e.ReleaseDate).HasColumnType("datetime");
             });

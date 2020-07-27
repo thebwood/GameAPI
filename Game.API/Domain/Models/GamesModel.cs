@@ -11,6 +11,5 @@ namespace Game.API.Domain.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int GameRatingsId { get; set; }
-        public int? GameTypesId { get; set; }
     }
 }
