@@ -10,6 +10,8 @@ namespace Game.API.Domain.Services
         IEnumerable<Games> GetGames();
         Games GetGame(int movieId);
         IEnumerable<GameRatings> GetGameRatings();
+        List<GameSearchResultsModel> SearchGames(GameSearchModel searchRequest);
+
 
     }
 }

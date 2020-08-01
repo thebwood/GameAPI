@@ -1,4 +1,5 @@
 ﻿using Game.API.Data;
+using Game.API.Domain.Models;
 using System.Collections.Generic;
 
 namespace Game.API.Domain.Services
@@ -9,5 +10,6 @@ namespace Game.API.Domain.Services
         Games GetGame(long gameId);
         void SaveDetail(Games game);
         IEnumerable<GameRatings> GetGameRatings();
+        List<GameSearchResultsModel> SearchGames(GameSearchModel searchRequest);
     }
 }

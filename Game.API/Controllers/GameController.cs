@@ -77,6 +77,25 @@ namespace Game.API.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
             }
         }
+        [HttpPost("search")]
+        [ProducesResponseType(typeof(List<GameSearchResultsModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(List<GameSearchResultsModel>), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(List<GameSearchResultsModel>), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(List<GameSearchResultsModel>), (int)HttpStatusCode.InternalServerError)]
+        public IActionResult SearchGames([FromBody] GameSearchModel searchRequest)
+        {
+            try
+            {
+                var searchResults = _service.SearchGames(searchRequest);
+
+                return Ok(searchResults);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "A problem happened while handling your request.");
+            }
+
+        }
 
 
         [HttpGet("ratings")]
