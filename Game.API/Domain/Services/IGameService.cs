@@ -8,7 +8,7 @@ namespace Game.API.Domain.Services
     {
         List<string> SaveDetail(GamesModel game);
         IEnumerable<Games> GetGames();
-        Games GetGame(int movieId);
+        Games GetGame(long movieId);
         IEnumerable<GameRatings> GetGameRatings();
         List<GameSearchResultsModel> SearchGames(GameSearchModel searchRequest);
 

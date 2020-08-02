@@ -57,7 +57,7 @@ namespace Game.API.Controllers
         [ProducesResponseType(typeof(GamesModel), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(GamesModel), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(GamesModel), (int)HttpStatusCode.InternalServerError)]
-        public IActionResult GetGame(int gameId)
+        public IActionResult GetGame(long gameId)
         {
             try
             {

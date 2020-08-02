@@ -21,7 +21,7 @@ namespace Game.API.Domain.Services
         }
 
         public IEnumerable<Games> GetGames() => _gameRepository.GetGames();
-        public Games GetGame(int gameId) => _gameRepository.GetGame(gameId);
+        public Games GetGame(long gameId) => _gameRepository.GetGame(gameId);
 
         public IEnumerable<GameRatings> GetGameRatings() => _gameRepository.GetGameRatings();
         public List<GameSearchResultsModel> SearchGames(GameSearchModel searchRequest) => _gameRepository.SearchGames(searchRequest);
